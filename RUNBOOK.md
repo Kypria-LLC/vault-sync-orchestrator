@@ -383,3 +383,99 @@ If Vault is unreachable:
 **Document Owner**: Platform Engineering Team  
 **Last Reviewed**: 2025-12-04  
 **Next Review**: 2026-01-04
+
+
+---
+
+## Incident Play Card for On-Call
+
+**Purpose:** Quick reference for on-call to recover, rotate credentials, or re-run the first-run ingestion.
+
+### Contact List
+- **Platform lead:** platform@example.com
+- **Security lead:** security@example.com
+- **On-call SRE:** pagerduty@example.com
+
+### Immediate Triage Steps
+
+#### Check workflow status
+```bash
+# View latest workflow runs
+gh run list --repo Kypria-LLC/vault-sync-orchestrator --limit 10
+# Stream logs for a failing run
+gh run view <run-id> --repo Kypria-LLC/vault-sync-orchestrator --log
+```
+
+#### If manifest verification failed: rollback
+```bash
+# Revert last commit that contains the ceremony commit
+git fetch origin main
+git checkout main
+git reset --hard HEAD~1
+git push --force-with-lease origin main
+```
+
+After rollback, restore first-run flag if you need to re-ingest:
+```bash
+touch orchestrator/state/firstrun.flag
+git add orchestrator/state/firstrun.flag
+git commit -m "Restore firstrun flag for re-ingestion"
+git push origin main
+```
+
+#### If Vault AppRole secret_id is suspected compromised: rotate immediately
+```bash
+# Generate new secret_id locally (requires vault CLI and privileges)
+./orchestrator/rotate-approle-secret.sh
+# Copy printed secret_id and update GitHub secret
+gh secret set VAULT_APPROLE_SECRET_ID --body "<new-secret-id>" --repo Kypria-LLC/vault-sync-orchestrator
+# Optionally revoke old secret_id in Vault
+```
+
+#### Force a re-run of the orchestrator
+```bash
+gh workflow run vault-sync.yml --repo Kypria-LLC/vault-sync-orchestrator --ref main -f forcefirstrun=true
+```
+
+#### Emergency: remove first-run flag to force ingestion on next scheduled run
+```bash
+# Use helper script
+chmod +x orchestrator/reset-first-run.sh
+./orchestrator/reset-first-run.sh
+# Commit if you want the change tracked
+git add orchestrator/state/firstrun.flag || true
+git commit -m "Emergency: remove firstrun flag" || true
+git push origin main || true
+```
+
+### Verification Checklist After Recovery
+- [ ] Vault auth step shows AppRole login success in workflow logs
+- [ ] metadata/ contains scroll:true entries for first-run secrets
+- [ ] manifest.json exists and checksums match files
+- [ ] Atomic commit present with ceremony message and expected files staged
+- [ ] Security scan shows no critical exposures
+- [ ] Artifacts uploaded and accessible in Actions artifacts
+
+### Escalation Rules
+- **Within 15 minutes**: If rollback or rotation fails, notify Platform lead and Security lead via PagerDuty
+- **Within 30 minutes**: If secrets exposure is confirmed, rotate all affected credentials and follow incident response playbook in RUNBOOK.md
+
+### Short Commands Cheat Sheet
+```bash
+# Trigger manual run
+gh workflow run vault-sync.yml --repo Kypria-LLC/vault-sync-orchestrator --ref main -f forcefirstrun=true
+
+# Rollback last commit
+git reset --hard HEAD~1
+git push --force-with-lease origin main
+
+# Restore first-run flag
+touch orchestrator/state/firstrun.flag
+git add orchestrator/state/firstrun.flag
+git commit -m "Restore firstrun flag for re-ingestion"
+git push origin main
+
+# Rotate AppRole secret_id
+./orchestrator/rotate-approle-secret.sh
+gh secret set VAULT_APPROLE_SECRET_ID --body "<new-secret-id>" --repo Kypria-LLC/vault-sync-orchestrator
+```
