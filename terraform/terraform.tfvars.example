@@ -1,0 +1,43 @@
+# Terraform Variables Configuration Example
+#
+# Copy this file to terraform.tfvars and customize the values for your deployment.
+# Do not commit terraform.tfvars to version control as it may contain sensitive information.
+
+# AWS Configuration
+aws_region = "us-east-1"
+environment = "production"
+
+# Vault Server Configuration
+vault_version = "1.21.1"
+vault_domain = "vault.your-domain.com"  # Replace with your actual domain
+
+# EC2 Configuration
+instance_type = "t3.medium"
+ssh_key_name = "your-ec2-key-name"  # Replace with your existing EC2 key pair name
+
+# Storage Configuration
+vault_storage_size = 50  # GB
+
+# Secret Paths for GitHub Actions Sync
+# Comma-separated list of Vault secret paths
+vault_secret_paths = "secret/data/app1,secret/data/db-creds"
+
+# Security Configuration
+# AppRole Secret ID TTL (must be 720h for 30-day rotation)
+approle_secret_id_ttl = "720h"
+
+# Audit Log Retention
+audit_log_retention_days = 90
+
+# Optional: SSH Access CIDRs
+# Leave empty for no SSH access (recommended)
+# Uncomment and configure only if emergency SSH access is required
+# allowed_ssh_cidrs = ["203.0.113.0/24"]  # Replace with your IP range
+allowed_ssh_cidrs = []
+
+# Optional: Additional Resource Tags
+tags = {
+  Project     = "vault-sync-orchestrator"
+  Owner       = "infrastructure-team"
+  CostCenter  = "engineering"
+}
