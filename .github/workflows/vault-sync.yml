@@ -64,9 +64,7 @@ jobs:
         # Export token to subsequent steps
         echo "VAULT_TOKEN=$token" >> $GITHUB_ENV
               echo "::add-mask::$token"
-          echo "Vault configured for $VAULT_ADDR"
-          vault status || true
-      
+          
       - name: Force first-run if requested
         if: ${{ github.event.inputs.forcefirstrun == 'true' }}
         run: |
