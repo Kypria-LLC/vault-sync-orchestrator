@@ -63,13 +63,7 @@ jobs:
         
         # Export token to subsequent steps
         echo "VAULT_TOKEN=$token" >> $GITHUB_ENV
-        echo "::add-mask::$token"Configure Vault authentication
-        env:
-          VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
-#           VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
-          VAULT_NAMESPACE: ${{ secrets.VAULT_NAMESPACE }}
-        run: |
-          export VAULT_ADDR=${{ secrets.VAULT_ADDR }}
+              echo "::add-mask::$token"
           echo "Vault configured for $VAULT_ADDR"
           vault status || true
       
