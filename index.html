@@ -1,0 +1,468 @@
+!DOCTYPE html
+html lang=en
+head
+    meta charset=UTF-8
+    meta name=viewport content=width=device-width, initial-scale=1.0
+    meta name=description content=Production-ready Terraform templates for HashiCorp Vault on AWS. Deploy vault-sync-orchestrator infrastructure in 30 minutes. Save 50+ hours of engineering time.
+    meta name=keywords content=Terraform, Vault, AWS, Infrastructure as Code, DevOps, Secret Management, HashiCorp
+    meta name=author content=Kypria LLC
+    
+    meta property=ogtitle content=Production Terraform Templates for vault-sync-orchestrator  $49
+    meta property=ogdescription content=Deploy production-grade Vault infrastructure on AWS in 30 minutes with battle-tested Terraform code. Security hardened. Compliance ready.
+    meta property=ogtype content=website
+    meta property=ogimage content=httpsopengraph.b-cdn.netproductionimagesterraform-templates
+    
+    meta name=twittercard content=summary_large_image
+    meta name=twittertitle content=Terraform Templates for vault-sync-orchestrator
+    meta name=twitterdescription content=Deploy Vault in 30 minutes. Save 3 weeks of infrastructure work. $49 early bird pricing.
+    
+    titleProduction Terraform Templates for vault-sync-orchestrator  $49  Kypriatitle
+    
+    style
+         {
+            margin 0;
+            padding 0;
+            box-sizing border-box;
+        }
+        
+        root {
+            --primary #667eea;
+            --primary-dark #764ba2;
+            --primary-light #818cf8;
+            --secondary #ec4899;
+            --success #10b981;
+            --warning #f59e0b;
+            --danger #ef4444;
+            --dark #1f2937;
+            --dark-light #374151;
+            --light #f9fafb;
+            --light-dark #f3f4f6;
+            --gray #6b7280;
+            --border #e5e7eb;
+            --text #111827;
+            --text-light #6b7280;
+        }
+        
+        html {
+            scroll-behavior smooth;
+        }
+        
+        body {
+            font-family -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height 1.6;
+            color var(--text);
+            background-color #ffffff;
+            overflow-x hidden;
+        }
+        
+         Navbar 
+        nav {
+            position sticky;
+            top 0;
+            background rgba(255, 255, 255, 0.95);
+            backdrop-filter blur(10px);
+            border-bottom 1px solid var(--border);
+            padding 1rem 2rem;
+            z-index 1000;
+            box-shadow 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        
+        .nav-container {
+            max-width 1200px;
+            margin 0 auto;
+            display flex;
+            justify-content space-between;
+            align-items center;
+        }
+        
+        .logo {
+            font-size 1.5rem;
+            font-weight 700;
+            color var(--primary);
+            text-decoration none;
+            display flex;
+            align-items center;
+            gap 0.5rem;
+        }
+        
+        .logobefore {
+            content ⚡;
+            font-size 1.8rem;
+        }
+        
+        .nav-links {
+            display flex;
+            list-style none;
+            gap 2rem;
+            align-items center;
+        }
+        
+        .nav-links a {
+            color var(--text);
+            text-decoration none;
+            font-weight 500;
+            transition color 0.3s ease;
+        }
+        
+        .nav-links ahover {
+            color var(--primary);
+        }
+        
+        .cta-nav {
+            background var(--primary);
+            color white;
+            padding 0.75rem 1.5rem;
+            border-radius 0.5rem;
+            transition all 0.3s ease;
+            cursor pointer;
+            border none;
+            font-weight 600;
+            font-size 1rem;
+        }
+        
+        .cta-navhover {
+            background var(--primary-dark);
+            transform translateY(-2px);
+            box-shadow 0 10px 25px rgba(102, 126, 234, 0.2);
+        }
+        
+         Hero Section 
+        .hero {
+            background linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color white;
+            padding 5rem 2rem;
+            text-align center;
+            position relative;
+            overflow hidden;
+        }
+        
+        .herobefore {
+            content '';
+            position absolute;
+            top -50%;
+            right -10%;
+            width 600px;
+            height 600px;
+            background rgba(255, 255, 255, 0.1);
+            border-radius 50%;
+            animation float 6s ease-in-out infinite;
+        }
+        
+        .heroafter {
+            content '';
+            position absolute;
+            bottom -30%;
+            left -5%;
+            width 400px;
+            height 400px;
+            background rgba(255, 255, 255, 0.05);
+            border-radius 50%;
+            animation float 8s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform translateY(0px);
+            }
+            50% {
+                transform translateY(30px);
+            }
+        }
+        
+        .hero-content {
+            max-width 800px;
+            margin 0 auto;
+            position relative;
+            z-index 1;
+        }
+        
+        .hero h1 {
+            font-size 3.5rem;
+            font-weight 800;
+            margin-bottom 1.5rem;
+            line-height 1.2;
+            animation slideInDown 0.8s ease;
+        }
+        
+        .hero p {
+            font-size 1.3rem;
+            margin-bottom 2rem;
+            opacity 0.95;
+            animation slideInUp 0.8s ease 0.2s both;
+        }
+        
+        .hero-badges {
+            display flex;
+            gap 1rem;
+            justify-content center;
+            margin-bottom 2rem;
+            flex-wrap wrap;
+            animation slideInUp 0.8s ease 0.4s both;
+        }
+        
+        .badge {
+            background rgba(255, 255, 255, 0.2);
+            padding 0.5rem 1rem;
+            border-radius 2rem;
+            font-size 0.9rem;
+            border 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .hero-cta {
+            display flex;
+            gap 1rem;
+            justify-content center;
+            animation slideInUp 0.8s ease 0.6s both;
+            flex-wrap wrap;
+        }
+        
+        .btn {
+            padding 1rem 2.5rem;
+            border-radius 0.5rem;
+            font-size 1.1rem;
+            font-weight 600;
+            border none;
+            cursor pointer;
+            transition all 0.3s ease;
+            text-decoration none;
+            display inline-block;
+            text-align center;
+        }
+        
+        .btn-primary {
+            background white;
+            color var(--primary);
+        }
+        
+        .btn-primaryhover {
+            transform translateY(-3px);
+            box-shadow 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-secondary {
+            background transparent;
+            color white;
+            border 2px solid white;
+        }
+        
+        .btn-secondaryhover {
+            background white;
+            color var(--primary);
+            transform translateY(-3px);
+        }
+        
+        @keyframes slideInDown {
+            from {
+                opacity 0;
+                transform translateY(-20px);
+            }
+            to {
+                opacity 1;
+                transform translateY(0);
+            }
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity 0;
+                transform translateY(20px);
+            }
+            to {
+                opacity 1;
+                transform translateY(0);
+            }
+        }
+        
+         Features Section 
+        .features {
+            padding 5rem 2rem;
+            background var(--light);
+        }
+        
+        .section-title {
+            text-align center;
+            font-size 2.5rem;
+            margin-bottom 3rem;
+            color var(--text);
+        }
+        
+        .features-grid {
+            display grid;
+            grid-template-columns repeat(auto-fit, minmax(300px, 1fr));
+            gap 2rem;
+            max-width 1200px;
+            margin 0 auto;
+        }
+        
+        .feature-card {
+            background white;
+            padding 2rem;
+            border-radius 0.75rem;
+            border 1px solid var(--border);
+            transition all 0.3s ease;
+            box-shadow 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature-cardhover {
+            border-color var(--primary);
+            box-shadow 0 10px 30px rgba(102, 126, 234, 0.1);
+            transform translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size 2.5rem;
+            margin-bottom 1rem;
+        }
+        
+        .feature-card h3 {
+            font-size 1.3rem;
+            margin-bottom 0.5rem;
+            color var(--text);
+        }
+        
+        .feature-card p {
+            color var(--text-light);
+            line-height 1.6;
+        }
+        
+         Benefits Section 
+        .benefits {
+            padding 5rem 2rem;
+            background white;
+        }
+        
+        .benefits-grid {
+            max-width 1200px;
+            margin 0 auto;
+            display grid;
+            grid-template-columns 1fr 1fr;
+            gap 3rem;
+            align-items center;
+        }
+        
+        .benefits-content h2 {
+            font-size 2.5rem;
+            margin-bottom 2rem;
+            color var(--text);
+        }
+        
+        .benefit-item {
+            display flex;
+            gap 1rem;
+            margin-bottom 1.5rem;
+        }
+        
+        .benefit-check {
+            color var(--success);
+            font-size 1.5rem;
+            flex-shrink 0;
+            margin-top 0.25rem;
+        }
+        
+        .benefit-text h4 {
+            color var(--text);
+            margin-bottom 0.25rem;
+        }
+        
+        .benefit-text p {
+            color var(--text-light);
+            font-size 0.95rem;
+        }
+        
+        .benefits-image {
+            background linear-gradient(135deg, var(--light-dark) 0%, var(--light) 100%);
+            border-radius 0.75rem;
+            padding 2rem;
+            text-align center;
+            min-height 400px;
+            display flex;
+            align-items center;
+            justify-content center;
+            font-size 4rem;
+        }
+        
+         Pricing Section 
+        .pricing {
+            padding 5rem 2rem;
+            background linear-gradient(135deg, var(--light-dark) 0%, var(--light) 100%);
+        }
+        
+        .pricing-card {
+            background white;
+            border-radius 0.75rem;
+            padding 2rem;
+            border 2px solid var(--border);
+            max-width 400px;
+            margin 0 auto;
+            text-align center;
+            transition all 0.3s ease;
+            position relative;
+        }
+        
+        .pricing-card.featured {
+            border-color var(--primary);
+            transform scale(1.05);
+            box-shadow 0 20px 50px rgba(102, 126, 234, 0.15);
+        }
+        
+        .pricing-badge {
+            position absolute;
+            top -15px;
+            left 50%;
+            transform translateX(-50%);
+            background var(--primary);
+            color white;
+            padding 0.5rem 1.5rem;
+            border-radius 2rem;
+            font-size 0.85rem;
+            font-weight 600;
+        }
+        
+        .pricing-card h3 {
+            font-size 1.5rem;
+            margin 1rem 0;
+            color var(--text);
+        }
+        
+        .price {
+            font-size 3rem;
+            font-weight 800;
+            color var(--primary);
+            margin 1rem 0;
+        }
+        
+        .price-currency {
+            font-size 1.5rem;
+        }
+        
+        .price-period {
+            color var(--text-light);
+            font-size 1rem;
+        }
+        
+        .pricing-description {
+            color var(--text-light);
+            margin-bottom 2rem;
+            min-height 60px;
+        }
+        
+        .pricing-features {
+            list-style none;
+            text-align left;
+            margin-bottom 2rem;
+        }
+        
+        .pricing-features li {
+            padding 0.75rem 0;
+            border-bottom 1px solid var(--border);
+            color var(--text);
+            display flex;
+            align-items center;
+            gap 0.75rem;
+        }
+        
+        .pricing-features libefore {
+            content ✓;
+            color var(--success);
+            font-weight bold;
+            font-size 1.2rem;
