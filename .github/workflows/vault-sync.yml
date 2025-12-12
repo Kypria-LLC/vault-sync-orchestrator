@@ -39,13 +39,13 @@ jobs:
           sudo apt update && sudo apt install vault
 
             - name: Login to Vault (AppRole)
-      id: vault_login
-      env:
+        id: vault_login
+        env:
         VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
         VAULT_ROLE_ID: ${{ secrets.VAULT_APPROLE_ROLE_ID }}
         VAULT_SECRET_ID: ${{ secrets.VAULT_APPROLE_SECRET_ID }}
         VAULT_NAMESPACE: ${{ secrets.VAULT_NAMESPACE }}
-      run: |
+        run: |
         set -euo pipefail
         
         # Authenticate with AppRole
